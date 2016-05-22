@@ -1,3 +1,4 @@
+import datetime
 from polls import app, db
 from .models import Question
 from flask import render_template, abort, redirect, request, url_for
@@ -5,7 +6,8 @@ from flask import render_template, abort, redirect, request, url_for
 
 @app.route('/')
 def index():
-    latest_question_list = Question.query.order_by('pub_date')[:5]
+    now = datetime.datetime.now()
+    latest_question_list = Question.query.filter(Question.pub_date<=now).order_by('pub_date')[:5]
     return render_template('index.html', latest_question_list=latest_question_list)
 
 
