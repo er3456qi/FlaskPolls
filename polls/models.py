@@ -9,7 +9,8 @@ class Question(db.Model):
     choice_set = db.relationship('Choice', backref='question')
 
     def was_published_recently(self):
-        return self.pub_date >= datetime.datetime.now() - datetime.timedelta(days=1)
+        now = datetime.datetime.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def __str__(self):
         return self.question_text
