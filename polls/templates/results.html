@@ -1,0 +1,11 @@
+<h1>{{ question.question_text }}</h1>
+<ul>
+    {% for choice in question.choice_set %}
+    {% if choice.votes < 1 %}
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote</li>
+    {% else %}
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} votes</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+<a href="{{ url_for('detail', question_id=question.id) }}">Vote again?</a>
